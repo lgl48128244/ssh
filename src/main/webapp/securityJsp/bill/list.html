@@ -8,21 +8,26 @@
 	<link type="text/css" rel="stylesheet" href="../../css/jPages.css" />
 	<script type="text/javascript" src="../../js/jquery-2.1.4.js"></script>
 	<script type="text/javascript" src="../../js/jPages.js"></script>
+	<script type="text/javascript" src="../../js/base.js"></script>
 	<script type="text/javascript">
-	
+		//项目路径
+		var path = rootPath();
+		function add(){
+			window.location.href= path+"/securityJsp/bill/addParam.html";
+		}
 		function modify(id){
-			window.location.href="../../bill/bill!updateParam.action?id="+id;
+			window.location.href=path+"/securityJsp/bill/updateParam.html?id="+id;
 		}
 		
 		function del(id){
 			if(window.confirm("确定要删除吗?")==true){
-				window.location.href="../../bill/bill!delete.action?id="+id;
+				window.location.href=path+"/bill/bill!delete.action?id="+id;
 			}
 		}
 		$(function(){
 			$.ajax({
 			   type: "get",
-			   url: "../../bill/bill!list.action",
+			   url: path+"/bill/bill!list.action",
 			   success: function(data){
 				   var obj= $.parseJSON(data);//注意（TypeError: invalid 'in' operand obj）
 				   $.each(obj, function(i, n){
@@ -73,7 +78,7 @@
 	</div>
 	<div class="main">
 		<div class="optitle clearfix">
-			<em> <input type="button" name="button" value="添加数据" class="input-button" onclick="window.location.href='bill_addParam.action'" />
+			<em> <input type="button" name="button" value="添加数据" class="input-button" onclick="add();" />
 			</em>
 			<div class="title">
 				账单管理&gt;&gt;
