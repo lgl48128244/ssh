@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 指定由spring负责action对象的创建 -->
+	<constant name="struts.objectFactory" value="spring" />
+	<!-- 所有匹配*.action的请求都由struts2处理 -->
+	<constant name="struts.action.extension" value="action" />
+	<!-- 是否启用开发模式 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- struts配置文件改动后，是否重新加载 -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<!-- 设置浏览器是否缓存静态内容 -->
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<!-- 请求参数的编码方式 -->
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<!-- 每次HTTP请求系统都重新加载资源文件，有助于开发 -->
+	<constant name="struts.i18n.reload" value="true" />
+	<!-- 文件上传最大值 -->
+	<constant name="struts.multipart.maxSize" value="104857600" />
+	<!-- 让struts2支持动态方法调用 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<!-- Action名称中是否还是用斜线 -->
+	<constant name="struts.enable.SlashesInActionNames" value="false" />
+	<!-- 允许标签中使用表达式语法 -->
+	<constant name="struts.tag.altSyntax" value="true" />
+	<!-- 对于WebLogic,Orion,OC4J此属性应该设置成true -->
+	<constant name="struts.dispatcher.parametersWorkaround" value="false" />
+	
+	<package name="basePackage" extends="struts-default" namespace="/">
+		<interceptors>
+			<!-- 字符集拦截器 -->
+			<interceptor name="encodingInterceptor" class="com.market.project.util.EncodingInterceptor" />
+			<interceptor-stack name="encodingStack">
+				<interceptor-ref name="encodingInterceptor"></interceptor-ref>
+			</interceptor-stack>
+			<!-- session拦截器 -->
+			<interceptor name="sessionInterceptor" class="com.market.project.util.SessionInterceptor" />
+			<interceptor-stack name="sessionStack">
+				<interceptor-ref name="encodingStack"></interceptor-ref>
+				<interceptor-ref name="sessionInterceptor">
+					<!-- 不拦截的方法 -->
+					<param name="excludeMethods">login,logout,code</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="sessionStack"></default-interceptor-ref>
+		<!-- 全局结果集就是公共的结果集，所有action只要找到相应的返回值就会来对应全局结果集 -->
+		<global-results>
+			<result name="error_code">/login.jsp</result>
+			<result name="exception">/securityJsp/inc/exception.jsp</result>
+			<result name="error">/login.jsp?type=1</result>
+			<result name="logout" type="redirect">/login.jsp</result>
+			<result name="login" type="redirect">/login.jsp?type=3</result>
+			<result name="login_index">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="errorInterceptor">/error/noSession.jsp</result>
+		</global-results>
+		<!-- 定义异常处理界面 -->
+		<global-exception-mappings>
+			<exception-mapping result="exception" exception="com.market.project.util.MarketException"></exception-mapping>
+		</global-exception-mappings>
+		<!-- 通配符配置 -->
+		<action name="*_*" class="{1}Action" method="{2}">
+			<!-- 验证码 -->
+			<result type="stream" name="code">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<result>/securityJsp/{1}/{2}.jsp</result>
+			<result type="redirect" name="redirect">${url}</result>
+		</action>
+	</package>
+</struts>
