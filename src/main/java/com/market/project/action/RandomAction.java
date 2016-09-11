@@ -3,11 +3,9 @@ package com.market.project.action;
 import java.io.ByteArrayInputStream;
 
 import org.apache.struts2.ServletActionContext;
-import org.springframework.stereotype.Controller;
 
 import com.market.project.util.RandomNumUtil;
 import com.opensymphony.xwork2.ActionSupport;
-@Controller
 public class RandomAction extends ActionSupport {
 	/**
 	 * 

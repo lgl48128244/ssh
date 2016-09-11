@@ -4,12 +4,10 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import com.market.project.model.Bill;
 import com.market.project.model.Supplier;
@@ -17,9 +15,9 @@ import com.market.project.service.BillServiceI;
 import com.market.project.service.SupplierServiceI;
 import com.market.project.util.ActionUtil;
 import com.market.project.util.HqlFilter;
-import com.market.project.util.Pager;
 
-@Controller
+@Namespace("/bill")
+@Action
 public class BillAction extends BaseAction<Bill> {
 	/**
 	 * 
@@ -29,30 +27,13 @@ public class BillAction extends BaseAction<Bill> {
 	private BillServiceI billService;
 	@Autowired
 	private SupplierServiceI supplierService;
-	private Pager<Bill> pager;
-
-	public Pager<Bill> getPager() {
-		return pager;
-	}
-
-	public void setPager(Pager<Bill> pager) {
-		this.pager = pager;
-	}
-
 	/**
 	 * list
 	 * @return
 	 */
-	public String list() {
-		HttpServletRequest request = getRequest();
-		String param1 = request.getParameter("productName");
-		String param2 = request.getParameter("isPay");
-		if(StringUtils.isBlank(param2)){
-			param2 = "0";
-		}
-		Pager<Bill> billList = billService.findAll(param1,Integer.valueOf(param2));
-		request.setAttribute("billList", billList);
-		return SUCCESS;
+	public void list() {
+		List<Bill> list = billService.find();
+		writeJson(list);
 	}
 
 	/**
@@ -103,7 +84,7 @@ public class BillAction extends BaseAction<Bill> {
 	 * @return
 	 * @throws IOException 
 	 */
-	public String delete() {
+	/*public String delete() {
 		try {
 			Bill bill = billService.getById(id);
 			billService.delete(bill);
@@ -117,14 +98,14 @@ public class BillAction extends BaseAction<Bill> {
 			ActionUtil.setUrl("/bill_list.action");
 		}
 		return ActionUtil.REDIRECT;
-	}
+	}*/
 
 	/**
 	 * updateBill
 	 * @return
 	 * @throws IOException 
 	 */
-	public String update() {
+	/*public String update() {
 		try {
 			data.setTradeTime(new Date());
 			billService.update(data);
@@ -138,5 +119,6 @@ public class BillAction extends BaseAction<Bill> {
 			ActionUtil.setUrl("/bill_list.action");
 		}
 		return ActionUtil.REDIRECT;
-	}
+	}*/
+	
 }

@@ -4,7 +4,7 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<!-- 指定由spring负责action对象的创建 -->
-	<constant name="struts.objectFactory" value="spring" />
+	<!-- <constant name="struts.objectFactory" value="spring" /> -->
 	<!-- 所有匹配*.action的请求都由struts2处理 -->
 	<constant name="struts.action.extension" value="action" />
 	<!-- 是否启用开发模式 -->
@@ -61,15 +61,22 @@
 		<global-exception-mappings>
 			<exception-mapping result="exception" exception="com.market.project.util.MarketException"></exception-mapping>
 		</global-exception-mappings>
-		<!-- 通配符配置 -->
-		<action name="*_*" class="{1}Action" method="{2}">
+		<action name="random" class="com.market.project.action.RandomAction">
 			<!-- 验证码 -->
+			<result type="stream" name="code">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 通配符配置 -->
+		<!-- <action name="*_*" class="{1}Action" method="{2}">
+			验证码
 			<result type="stream" name="code">
 				<param name="contentType">image/jpeg</param>
 				<param name="inputName">inputStream</param>
 			</result>
 			<result>/securityJsp/{1}/{2}.jsp</result>
 			<result type="redirect" name="redirect">${url}</result>
-		</action>
+		</action> -->
 	</package>
 </struts>

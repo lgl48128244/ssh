@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var r = confirm("你要退出系统吗");
 		if (r) {
 			//window.open("login.jsp?type=2", "_parent");
-			window.location.href="user_logout.action";
+			window.location.href="user/user!logout.action";
 			//left.location.replace("user_logout.action");
 		}
 	}
@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body class="frame-bd">
 	<ul class="left-menu">
 		<li>
-			<a href="bill_list.action" target="mainFrame">
+			<a href="securityJsp/bill/list.html" target="mainFrame">
 				<img src="images/btn_bill.gif" /> 
 			</a>
 		</li>

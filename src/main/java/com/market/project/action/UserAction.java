@@ -11,8 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import com.market.project.model.SystemConfig;
 import com.market.project.model.User;
@@ -21,8 +21,8 @@ import com.market.project.service.UserServiceI;
 import com.market.project.util.ActionUtil;
 import com.market.project.util.BeanUtils;
 import com.market.project.util.Pager;
-
-@Controller
+@Namespace("/user")
+@Action
 public class UserAction extends BaseAction<User> {
 
 	private static final long serialVersionUID = 6871148737058952391L;
@@ -31,15 +31,7 @@ public class UserAction extends BaseAction<User> {
 	@Autowired
 	private SystemConfigI systemConfig;
 	
-	private Pager<User> pager;
-	public Pager<User> getPager() {
-		return pager;
-	}
 	
-	public void setPager(Pager<User> pager) {
-		this.pager = pager;
-	}
-
 	/**
 	 * save
 	 * 
@@ -134,7 +126,7 @@ public class UserAction extends BaseAction<User> {
 	 * @return
 	 * @throws IOException
 	 */
-	public String delete() {
+	/*public String delete() {
 		try {
 			if (!StringUtils.isBlank(id)) {
 				User user = service.getById(id);
@@ -150,7 +142,7 @@ public class UserAction extends BaseAction<User> {
 			ActionUtil.setUrl("/user_list.action");
 		}
 		return ActionUtil.REDIRECT;
-	}
+	}*/
 
 	/**
 	 * updatePWS

@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  *   这和浏览器的缓存机制有关系，也可以把页面设置为不缓存，这样就不用这个参数了。  
 		  */
 		var timenow = new Date().getTime();
-		obj.src = "random_code.action?" + timenow;
+		obj.src = "random!code.action?" + timenow;
 	}
 	/**
 	 * 验证方式一
@@ -135,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="icon"></div>
 		<div class="login-box">
 			<form name="form" method="post"
-				action="user_login.action"
+				action="user/user!login.action"
 				onsubmit="return checkdata()">
 				<dl>
 					<dt>用户名：</dt>
@@ -152,7 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</dd>
 					<dt>验证码</dt>
 					<dd>
-						<input id="code" type="text" name="code" onblur="return checkCode()" class="input-text" style="width: 30%;" /> <img src="random_code.action"
+						<input id="code" type="text" name="code" onblur="return checkCode()" class="input-text" style="width: 30%;" /> <img src="random!code.action"
 							onclick="changeValidateCode(this)" title="点击图片刷新验证码" /> </br> <span
 							id="val" style="color: red"></span>
 					</dd>
