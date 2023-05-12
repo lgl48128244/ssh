@@ -1,126 +1,103 @@
 package com.market.project.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
-@Table(name="supplier")
+@Table(name = "supplier")
 public class Supplier implements Serializable {
+    //供应商编号
+    private int sid;
+    //供应商名称
+    private String sname;
+    //供应商描述
+    private String description;
+    //联系人
+    private String contacter;
+    //传真
+    private String fax;
+    //联系电话
+    private String phone;
+    //联系地址
+    private String address;
+    private Date createTime;
+    private Date updateTime;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6104660626921235799L;
-	//供应商编号
-	private int sid;
-	//供应商名称
-	private String sname;
-	//供应商描述
-	private String description;
-	//联系人
-	private String contacter;
-	//传真
-	private String fax;
-	//联系电话
-	private String phone;
-	//联系地址
-	private String address;
+    @Id
+    @GeneratedValue
+    public int getSid() {
+        return sid;
+    }
 
-	public Supplier() {
-		super();
-	}
+    public void setSid(int sid) {
+        this.sid = sid;
+    }
 
-	/**
-	 * shift+alt+s+o
-	* <p>Title: </p>
-	* <p>Description: </p>
-	* @param sid
-	* @param sname
-	* @param description
-	* @param contacter
-	* @param fax
-	* @param phone
-	* @param address
-	 */
-	public Supplier(int sid, String sname, String description, String contacter, String fax, String phone, String address) {
-		super();
-		this.sid = sid;
-		this.sname = sname;
-		this.description = description;
-		this.contacter = contacter;
-		this.fax = fax;
-		this.phone = phone;
-		this.address = address;
-	}
+    public String getSname() {
+        return sname;
+    }
 
-	/**
-	 * @see java.lang.Object#toString()
-	 */
+    public void setSname(String sname) {
+        this.sname = sname;
+    }
 
-	@Override
-	public String toString() {
-		return "Supplier [sid=" + sid + ", sname=" + sname + ", description=" + description + ", contacter=" + contacter + ", fax=" + fax + ", phone=" + phone + ", address=" + address + "]";
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	@Id
-	@GeneratedValue
-	public int getSid() {
-		return sid;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setSid(int sid) {
-		this.sid = sid;
-	}
+    public String getContacter() {
+        return contacter;
+    }
 
-	public String getSname() {
-		return sname;
-	}
+    public void setContacter(String contacter) {
+        this.contacter = contacter;
+    }
 
-	public void setSname(String sname) {
-		this.sname = sname;
-	}
+    public String getFax() {
+        return fax;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public String getContacter() {
-		return contacter;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public void setContacter(String contacter) {
-		this.contacter = contacter;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public String getFax() {
-		return fax;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public void setFax(String fax) {
-		this.fax = fax;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public Date getUpdateTime() {
+        return updateTime;
+    }
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 }

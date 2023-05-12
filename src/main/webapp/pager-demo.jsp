@@ -312,6 +312,7 @@ A.nodec { text-decoration: none; }
 <% } %>
 </pg:pager>
 </center>
+</form>
 </body>
 </html>
 <%!

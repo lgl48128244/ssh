@@ -1,28 +1,19 @@
 package com.market.project.service;
 
+import com.market.project.model.User;
+import com.market.project.util.Pager;
+
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.SOAPBinding;
 
-import com.market.project.model.User;
-import com.market.project.util.Pager;
-
 @WebService
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public interface UserServiceI {
+public interface UserServiceI extends BaseServiceI<User> {
 
-	public User login(String uname, String pwd);
+    User login(String uname, String pwd);
 
-	public void updatePWD(Integer upk, String password);
+    void updatePwd(Integer upk, String password);
 
-	public User save(User user);
-
-	public Pager<User> list(String userName);
-
-	public void update(User u);
-
-	public void delete(Integer id);
-
-	public User updateUser(Integer id);
-
+    Pager<User> findAll(User user, Integer page, Integer rows);
 }

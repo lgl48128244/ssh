@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="pg" uri="http://jsptags.com/tags/navigation/pager"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<pg:pager maxPageItems="15" maxIndexPages="15" items="${param.items }" export="curPage=pageNumber" url="${param.url }" scope="request">
+<pg:pager maxPageItems="10" maxIndexPages="10" items="${param.items }" export="curPage=pageNumber" url="${param.url }" scope="request">
 	<%-- <c:forEach items="${param.params }" var="p">
 		<pg:param name="${p }" />
 	</c:forEach> --%>

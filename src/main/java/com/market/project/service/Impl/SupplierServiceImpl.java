@@ -1,73 +1,62 @@
 package com.market.project.service.Impl;
 
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.market.project.dao.BaseDaoI;
 import com.market.project.model.Supplier;
 import com.market.project.service.SupplierServiceI;
 import com.market.project.util.Pager;
+import com.market.project.util.SystemContext;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author liglo
+ */
 @Service("supplierService")
-public class SupplierServiceImpl extends BaseService implements SupplierServiceI {
-	@Autowired
-	private BaseDaoI<Supplier> baseDao;
+public class SupplierServiceImpl extends BaseServiceImpl<Supplier> implements SupplierServiceI {
 
-	@Override
-	public Pager<Supplier> findAll(String sname, String desc) {
-		// TODO Auto-generated method stub
-		Pager<Supplier> pager = null;
-		String hql = "";
-		if (StringUtils.isNotBlank(sname) && StringUtils.isBlank(desc)) {
-			hql = "from Supplier where sname like ?";
-			Object[] params = { "%" + sname + "%" };
-			pager = baseDao.query(hql, params);
-		} else if (StringUtils.isBlank(sname) && StringUtils.isNotBlank(desc)) {
-			hql = "from Supplier where description like ?";
-			Object[] params = { "%" + desc + "%" };
-			pager = baseDao.query(hql, params);
-		} else if (StringUtils.isNotBlank(sname) && StringUtils.isNotBlank(desc)) {
-			hql = "from Supplier where sname like ? or description like ?";
-			Object[] params = { "%" + sname + "%", "%" + desc + "%" };
-			pager = baseDao.query(hql, params);
-		} else {
-			hql = "from Supplier";
-			pager = baseDao.query(hql);
-		}
-		return pager;
-	}
+    private String getParams(Supplier model, Map<String, Object> params) {
+        StringBuilder sb = new StringBuilder("where 1=1\n");
+        String sname = model.getSname();
+        if (StringUtils.isNotBlank(sname)) {
+            sb.append("and sname like :sname\n");
+            params.put("sname", "%" + sname + "%");
+        }
+        String description = model.getDescription();
+        if (StringUtils.isNotBlank(description)) {
+            sb.append("and description like :description\n");
+            params.put("description", "%" + description + "%");
+        }
+        return sb.toString();
+    }
 
-	@Override
-	public void save(Supplier supplier) {
-		// TODO Auto-generated method stub
-		baseDao.save(supplier);
-	}
+    @Override
+    public Pager<Supplier> findAll(Supplier supplier, Integer page, Integer rows) {
+        int pageSize = SystemContext.getPageSize();
+        int pageOffset = SystemContext.getPageOffset();
+        if (pageOffset == 0) {
+            pageOffset = 1;
+        } else {
+            pageOffset = (pageOffset / pageSize) + 1;
+        }
+        Map<String, Object> params = new HashMap<>(2);
+        String hql = "from Supplier\t" + getParams(supplier, params) + "\norder by createTime desc";
+        List<Supplier> bills = find(hql, params, pageOffset, pageSize);
+        hql = "select count(1) from Supplier\t" + getParams(supplier, params);
+        Long count = count(hql, params);
 
-	@Override
-	public void delete(Integer id) {
-		// TODO Auto-generated method stub
-		Supplier supplie = baseDao.getById(Supplier.class, id);
-		baseDao.delete(supplie);
-	}
+        Pager<Supplier> pager = new Pager<>();
+        pager.setOffset(pageOffset);
+        pager.setPageSize(pageSize);
+        pager.setRecords(bills);
+        pager.setTotal(count);
+        return pager;
+    }
 
-	@Override
-	public void update(Supplier supplier) {
-		// TODO Auto-generated method stub
-		baseDao.update(supplier);
-	}
-
-	@Override
-	public Supplier updateParam(Integer id) {
-		// TODO Auto-generated method stub
-		return baseDao.getById(Supplier.class, id);
-	}
-
-	@Override
-	public List<Supplier> getSuppliers() {
-		// TODO Auto-generated method stub
-		return baseDao.find("from Supplier");
-	}
+    @Override
+    public List<Supplier> getSuppliers() {
+        return find("from Supplier");
+    }
 }

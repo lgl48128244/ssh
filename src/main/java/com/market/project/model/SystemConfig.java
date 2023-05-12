@@ -3,28 +3,39 @@ package com.market.project.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Table(name = "system_config")
 public class SystemConfig {
-	private String id;
+    private String id;
 
-	private String value;
+    private Date value;
 
-	@Id
-	public String getId() {
-		return id;
-	}
+    private String content;
 
-	public void setId(String id) {
-		this.id = id == null ? null : id.trim();
-	}
+    @Id
+    public String getId() {
+        return id;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
+    }
 
-	public void setValue(String value) {
-		this.value = value == null ? null : value.trim();
-	}
+    public Date getValue() {
+        return value;
+    }
+
+    public void setValue(Date value) {
+        this.value = value;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }
