@@ -14,14 +14,18 @@
         function checkusername() {
             var username = document.getElementById("username").value;
             var span2 = document.getElementById("susername");
-            var reg = /^[\u4e00-\u9fa5]{2,4}$/;
+            //中文验证
+            // var reg = /^[\u4e00-\u9fa5]{2,4}$/;
+            //字母数字验证
+            var reg = /^[a-zA-z0-9]{2,16}$/;
             //var reg = /^[\u4e00-\u9fa5]{2,4}$/;
             if (null == username || "" == username) {
                 span2.innerHTML = "用户名不能为空";
                 form1.username.focus();
                 return false;
             } else if (reg.test(username) == false) {
-                span2.innerHTML = "用户名为汉字，最多四个字";
+                // span2.innerHTML = "用户名为汉字，最多四个字";
+                span2.innerHTML = "用户名长度为5-16";
                 form1.username.focus();
                 return false;
             } else {

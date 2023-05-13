@@ -18,21 +18,10 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    <!-- 解决中文乱码 -->
+    <!-- 注意：这个filter和filterMapping一定要放在web.xml的过滤器最顶端！切记！否则会失效！ -->
     <filter>
-        <filter-name>SystemContextFilter</filter-name>
-        <filter-class>com.market.project.handler.filter.SystemContextFilter</filter-class>
-        <init-param>
-            <param-name>pageSize</param-name>
-            <param-value>10</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>SystemContextFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <!--解决中文乱码开始 -->
-    <filter>
-        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
@@ -44,7 +33,19 @@
         </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>SystemContextFilter</filter-name>
+        <filter-class>com.market.project.handler.filter.SystemContextFilter</filter-class>
+        <init-param>
+            <param-name>pageSize</param-name>
+            <param-value>10</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>SystemContextFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter>

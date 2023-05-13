@@ -14,8 +14,6 @@
     <!-- 设置浏览器是否缓存静态内容 -->
     <constant name="struts.serve.static.browserCache" value="false"/>
     <!-- 请求参数的编码方式 -->
-    <constant name="struts.locale" value="zh_CN"/>
-    <!-- 请求参数的编码方式 -->
     <constant name="struts.i18n.encoding" value="utf-8"/>
     <!-- 每次HTTP请求系统都重新加载资源文件，有助于开发 -->
     <constant name="struts.i18n.reload" value="true"/>
@@ -32,17 +30,11 @@
 
     <package name="default" extends="struts-default" namespace="/">
         <interceptors>
-            <!-- 字符集拦截器 -->
-            <interceptor name="encodingInterceptor" class="com.market.project.handler.interceptor.EncodingInterceptor"/>
-            <interceptor-stack name="encodingStack">
-                <interceptor-ref name="encodingInterceptor"/>
-            </interceptor-stack>
             <!-- session拦截器 -->
             <interceptor name="sessionInterceptor" class="com.market.project.handler.interceptor.SessionInterceptor"/>
             <interceptor-stack name="sessionStack">
                 <!-- 注意顺序，先调用默认的拦截器，否则获取不到参数 -->
                 <interceptor-ref name="defaultStack"/>
-                <interceptor-ref name="encodingStack"/>
                 <interceptor-ref name="sessionInterceptor">
                     <!-- 不拦截的方法 -->
                     <param name="excludeMethods">login,logout,code</param>
